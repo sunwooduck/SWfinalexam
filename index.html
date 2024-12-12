@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>울산대학교 수강 신청 로그인</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-image: url('picture.jpeg'); background-size: cover; background-repeat: no-repeat; background-position: center center; height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <div style="max-width: 400px; background: rgba(255, 255, 255, 0.9); padding: 30px; border-radius: 10px; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1); text-align: center;">
+        <!-- 로고 이미지 -->
+        <img src="logo.png" alt="로고 이미지" style="width: 100px; margin-bottom: 20px;">
+
+        <h1 style="color: #333; font-size: 24px; margin-bottom: 20px;">울산대학교 수강 신청 로그인</h1>
+        <form onsubmit="event.preventDefault(); navigateToSuccess();">
+            <label for="student_id" style="display: block; margin-bottom: 10px; font-weight: bold; font-size: 14px; color: #555;">학번</label>
+            <input type="text" id="student_id" name="student_id" placeholder="학번 입력" required 
+                style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px;">
+
+            <label for="password" style="display: block; margin-bottom: 10px; font-weight: bold; font-size: 14px; color: #555;">비밀번호</label>
+            <input type="password" id="password" name="password" placeholder="비밀번호 입력" required 
+                style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px;">
+
+            <button type="submit" 
+                style="width: 100%; background-color: #007bff; color: white; padding: 12px; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer;">
+                수강신청
+            </button>
+        </form>
+    </div>
+
+    <script>
+        function navigateToSuccess() {
+            // 학번 입력값 가져오기
+            const studentId = document.getElementById("student_id").value;
+
+            // 비밀번호 값 확인만 하고, 서버로 전달하거나 저장하지 않음
+            const password = document.getElementById("password").value;
+
+            // 학번만 URL로 전달
+            if (studentId && password) {
+                window.location.href = `success.html?student_id=${encodeURIComponent(studentId)}`;
+            } else {
+                alert("학번 또는 비밀번호를 입력하세요.");
+            }
+        }
+    </script>
+</body>
+</html>
