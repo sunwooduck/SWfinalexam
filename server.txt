@@ -1,0 +1,18 @@
+[서버 정보]
+외부 IP 주소: 211.188.60.158
+관리자 이름: root
+비밀번호: D4*qaJh62n$n
+
+[서버 명령어]
+
+
+파일 서버 업로드
+$ scp "C:\Users\yujung\Desktop\html\index.html" root@211.188.60.158:/var/www/html/
+$ scp "C:\Users\yujung\Desktop\html\success.html" root@211.188.60.158:/var/www/html/
+$ scp "C:\Users\yujung\Desktop\html\picture.jpeg" root@211.188.60.158:/var/www/html/
+$ scp "C:\Users\yujung\Desktop\html\logo.png" root@211.188.60.158:/var/www/html/
+
+서버 html연동
+$ scp index.html root@211.188.60.158:/var/www/html/
+$ scp success.html root@211.188.60.158:/var/www/html/
+
