@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수강 신청</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-image: url('picture.jpeg'); background-size: cover; background-repeat: no-repeat; background-position: center center; margin: 0; padding: 0; height: 100vh;">
+    <div style="max-width: 600px; margin: 50px auto; background: rgba(255, 255, 255, 0.9); padding: 20px; border-radius: 8px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+        
+        <!-- 로고 이미지 -->
+        <div style="text-align: center; margin-bottom: 20px;">
+            <img src="logo.png" alt="로고 이미지" style="width: 150px; height: auto; display: inline-block;">
+        </div>
+
+        <h1 style="text-align: center; color: #444;">수강 신청</h1>
+        <p style="font-size: 16px; font-weight: bold; text-align: center;">학번: <span id="student-id" style="color: #007bff;"></span></p>
+        
+        <h2 style="color: #444; margin-top: 20px;">필수 수강 과목</h2>
+        <ul id="course-list" style="list-style: none; padding: 0; margin: 20px 0;"></ul>
+        
+        <h2 style="color: #444; margin-top: 20px;">나의 수강 신청 현황</h2>
+        <ul id="selected-courses" style="list-style: none; padding: 0; margin: 20px 0;"></ul>
+        
+        <p style="font-size: 16px; font-weight: bold; text-align: center; color: #333;">최대 이수 학점: <span id="max-credits">0</span>학점</p>
+        <p id="total-credits" style="font-size: 16px; font-weight: bold; text-align: center; color: #007bff;">총 이수 학점: 0학점</p>
+    </div>
+
+    <script>
+        let selectedCourses = [];
+        const MAX_CREDITS = 18; // 최대 이수 학점 설정
+
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return { studentId: params.get("student_id") };
+        }
+
+        function addCourse(courseName, credits) {
+            const totalCredits = selectedCourses.reduce((sum, course) => sum + course.credits, 0) + credits;
+
+            if (totalCredits > MAX_CREDITS) {
+                alert("최대 이수 학점을 초과했습니다!");
+                return;
+            }
+
+            selectedCourses.push({ name: courseName, credits });
+            updateSelectedCourses();
+        }
+
+        function removeCourse(courseName) {
+            selectedCourses = selectedCourses.filter(course => course.name !== courseName);
+            updateSelectedCourses();
+        }
+
+        function updateSelectedCourses() {
+            const selectedList = document.getElementById("selected-courses");
+            selectedList.innerHTML = "";
+
+            selectedCourses.forEach(course => {
+                const li = document.createElement("li");
+                li.style.display = "flex";
+                li.style.justifyContent = "space-between";
+                li.style.alignItems = "center";
+                li.innerHTML = `
+                    ${course.name} (${course.credits}학점)
+                    <button style="background-color: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;"
+                        onclick="removeCourse('${course.name}')">취소</button>
+                `;
+                selectedList.appendChild(li);
+            });
+
+            const totalCredits = selectedCourses.reduce((sum, course) => sum + course.credits, 0);
+            document.getElementById("total-credits").textContent = `총 이수 학점: ${totalCredits}학점`;
+        }
+
+        window.onload = function () {
+            const { studentId } = getQueryParams();
+            document.getElementById("student-id").textContent = studentId;
+
+            // 최대 이수 학점 표시
+            document.getElementById("max-credits").textContent = MAX_CREDITS;
+
+            const courses = [
+                { name: "SW개발환경및응용", credits: 3 },
+                { name: "객체지향프로그래밍", credits: 3 },
+                { name: "물리학 I", credits: 3 },
+                { name: "수학 I", credits: 3 },
+                { name: "화학 I", credits: 3 },
+                { name: "의사소통및글쓰기", credits: 2 },
+                { name: "영어회화", credits: 2 }
+            ];
+
+            const courseList = document.getElementById("course-list");
+            courses.forEach(course => {
+                const li = document.createElement("li");
+                li.style.display = "flex";
+                li.style.justifyContent = "space-between";
+                li.style.alignItems = "center";
+                li.innerHTML = `
+                    ${course.name} (${course.credits}학점)
+                    <button style="background-color: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;"
+                        onclick="addCourse('${course.name}', ${course.credits})">신청</button>
+                `;
+                courseList.appendChild(li);
+            });
+        };
+    </script>
+</body>
+</html>
