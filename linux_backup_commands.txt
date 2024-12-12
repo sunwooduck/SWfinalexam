@@ -1,0 +1,50 @@
+# MySQL 데이터베이스 백업
+1. 백업 디렉토리 생성 및 권한 설정
+   sudo mkdir -p /var/backups/mysql
+   sudo chown $(whoami):$(whoami) /var/backups/mysql
+
+2. MySQL 데이터베이스 백업
+   mysqldump -u root -p course_registration > /var/backups/mysql/course_registration_backup.sql
+
+# 서버 주요 디렉토리 백업
+3. 백업 디렉토리 생성
+   sudo mkdir -p /backup
+
+4. rsync로 백업 실행
+   rsync -avz /etc /home /var /backup/
+
+# 정기적인 백업 자동화
+5. 백업 스크립트 작성 (backup_script.sh)
+   #!/bin/bash
+   SOURCE="/etc /home /var"
+   DESTINATION="/backup"
+   DATE=$(date +%Y%m%d_%H%M%S)
+
+   mkdir -p $DESTINATION/$DATE
+   rsync -avz $SOURCE $DESTINATION/$DATE/
+   echo "백업 완료: $DESTINATION/$DATE/"
+
+6. 스크립트 실행 권한 부여
+   chmod +x backup_script.sh
+
+7. 테스트 실행
+   ./backup_script.sh
+
+# 백업 주기 설정
+8. crontab을 이용한 자동화
+   주기적으로 백업을 실행하려면 crontab에 등록합니다.
+
+   1) crontab 열기:
+      crontab -e
+
+   2) 다음과 같은 스케줄 추가:
+      0 2 * * * /path/to/backup.sh
+
+      - **0 2 * * ***: 매일 새벽 2시에 스크립트를 실행.
+
+# 백업 파일 확인
+9. 백업된 파일이 저장된 경로 확인
+   ls -l /backup/
+
+   또는, 스크립트에서 설정한 경로를 확인:
+   ls -l /path/to/backup/
