@@ -6,6 +6,30 @@
 [서버 명령어]
 
 
+시연
+(Apache 서비스 시작) -> 서버에서 입력하기 / 
+sudo systemctl start apache2
+sudo systemctl enable apache2
+(입력 후 아파치 서버 확인)
+service apache2 status
+
+(git-bast 입력)
+scp /c/Users/yujung/Desktop/html/index.html root@211.188.60.158:/var/www/html/
+scp /c/Users/yujung/Desktop/html/success.html root@211.188.60.158:/var/www/html/
+scp /c/Users/yujung/Desktop/html/picture.jpeg root@211.188.60.158:/var/www/html/
+scp /c/Users/yujung/Desktop/html/logo.png root@211.188.60.158:/var/www/html/
+
+----
+(서버중지)
+sudo systemctl stop apache2
+(Apache 관련 파일 제거)
+sudo rm -rf /var/www/html/*
+sudo rm -rf /etc/apache2/sites-available/*
+sudo rm -rf /etc/apache2/sites-enabled/*
+sudo rm -rf /var/log/apache2/*
+---
+
+
 파일 서버 업로드
 $ scp "C:\Users\yujung\Desktop\html\index.html" root@211.188.60.158:/var/www/html/
 $ scp "C:\Users\yujung\Desktop\html\success.html" root@211.188.60.158:/var/www/html/
@@ -15,4 +39,5 @@ $ scp "C:\Users\yujung\Desktop\html\logo.png" root@211.188.60.158:/var/www/html/
 서버 html연동
 $ scp index.html root@211.188.60.158:/var/www/html/
 $ scp success.html root@211.188.60.158:/var/www/html/
+
 
