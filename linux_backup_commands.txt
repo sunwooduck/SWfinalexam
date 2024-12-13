@@ -1,3 +1,26 @@
+외부 ip -> 211.188.60.158
+name -> root
+pw -> D4*qaJh62n$n
+
+sudo systemctl start mysql
+mysql 실행
+
+#!/bin/bash
+
+# 백업 디렉토리 정의
+BACKUP_DIR="/backup"
+MYSQL_BACKUP_DIR="/var/backups/mysql"
+
+# 백업 디렉토리 내 파일 삭제
+echo "백업 디렉토리 초기화 중..."
+sudo rm -rf $BACKUP_DIR/* $MYSQL_BACKUP_DIR/*
+
+# 디렉토리 상태 확인
+ls -l $BACKUP_DIR
+ls -l $MYSQL_BACKUP_DIR
+
+echo "초기화 완료!"
+
 # MySQL 데이터베이스 백업
 1. 백업 디렉토리 생성 및 권한 설정
    sudo mkdir -p /var/backups/mysql
