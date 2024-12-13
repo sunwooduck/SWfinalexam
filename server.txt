@@ -1,17 +1,19 @@
+ssh root@211.188.60.158
 [서버 정보]
 외부 IP 주소: 211.188.60.158
 관리자 이름: root
 비밀번호: D4*qaJh62n$n
 
 [서버 명령어]
-
-
 시연
-(Apache 서비스 시작) -> 서버에서 입력하기 / 
+(Apache 서비스 시작) -> 서버에서 입력하기
 sudo systemctl start apache2
 sudo systemctl enable apache2
 (입력 후 아파치 서버 확인)
 service apache2 status
+(모든 응답 헤더는 HTTP 표준에 따라 반환된 것
+서버가 클라이언트 요청을 성공적으로 처리했음)
+curl -I http://211.188.60.158
 
 (git-bast 입력)
 scp /c/Users/yujung/Desktop/html/index.html root@211.188.60.158:/var/www/html/
@@ -19,7 +21,11 @@ scp /c/Users/yujung/Desktop/html/success.html root@211.188.60.158:/var/www/html/
 scp /c/Users/yujung/Desktop/html/picture.jpeg root@211.188.60.158:/var/www/html/
 scp /c/Users/yujung/Desktop/html/logo.png root@211.188.60.158:/var/www/html/
 
+(이후 웹페이지 다시 확인)
+
+
 ----
+ssh root@211.188.60.158
 (서버중지)
 sudo systemctl stop apache2
 (Apache 관련 파일 제거)
